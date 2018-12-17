@@ -1,0 +1,15 @@
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '10.x'
+    displayName: 'Node.js 10'
+  - script: |
+      yarn
+    displayName: 'Installing'
+  - script: |
+      yarn test
+    displayName: 'Testing'
