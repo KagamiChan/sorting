@@ -5,9 +5,14 @@ const array = times(1e6, () => random(-1e6, 1e6))
 const result = sortBy(array)
 
 describe('Sorting methods', () => {
+  let input: number[]
+  beforeEach(() => {
+    input = array.slice()
+  })
+
   each(methods, (method, name) => {
-    it('hello world', done => {
-      expect(isEqual(method(array), result)).toBe(true)
+    it(name, done => {
+      expect(isEqual(method(input), result)).toBe(true)
       done()
     })
   })
