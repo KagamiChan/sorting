@@ -1,4 +1,6 @@
-export const quickSort = (nums: number[]) => {
+type SortingMethods = (nums: number[]) => number[]
+
+export const quickSort: SortingMethods = nums => {
   const helper = (left: number, right: number) => {
     if (left >= right) {
       return
@@ -21,6 +23,53 @@ export const quickSort = (nums: number[]) => {
   }
 
   helper(0, nums.length - 1)
+
+  return nums
+}
+
+export const mergeSort: SortingMethods = nums => {
+  const helper = (l: number, r: number) => {
+    if (r - l <= 1) {
+      return
+    }
+
+    const mid = Math.floor((l + r) / 2)
+
+    helper(l, mid)
+    helper(mid, r)
+
+    const left = nums.slice(l, mid)
+    const right = nums.slice(mid, r)
+
+    let i = 0
+    let j = 0
+    let total = l
+
+    while (i < left.length && j < right.length) {
+      if (left[i] < right[j]) {
+        nums[total] = left[i]
+        i++
+      } else {
+        nums[total] = right[j]
+        j++
+      }
+      total++
+    }
+
+    while (i < left.length) {
+      nums[total] = left[i]
+      i++
+      total++
+    }
+
+    while (j < right.length) {
+      nums[total] = right[j]
+      j++
+      total++
+    }
+  }
+
+  helper(0, nums.length)
 
   return nums
 }
