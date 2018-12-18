@@ -73,3 +73,35 @@ export const mergeSort: SortingMethods = nums => {
 
   return nums
 }
+
+export const heapSort: SortingMethods = nums => {
+  const heapify = (total: number, root: number) => {
+    let largest = root
+    const left = 2 * root + 1
+    const right = 2 * root + 2
+
+    if (left < total && nums[largest] < nums[left]) {
+      largest = left
+    }
+    if (right < total && nums[largest] < nums[right]) {
+      largest = right
+    }
+    if (largest !== root) {
+      ;[nums[root], nums[largest]] = [nums[largest], nums[root]]
+      heapify(total, largest) // because root and child is swapped, re-heapify the swapped branch
+    }
+  }
+
+  // build max heap
+  for (let i = Math.floor(nums.length / 2) - 1; i >= 0; i--) {
+    heapify(nums.length, i)
+  }
+
+  // for max heap, its max value should be at 0
+  // move max value to the end, and re-heapify
+  for (let i = nums.length - 1; i >= 0; i--) {
+    ;[nums[i], nums[0]] = [nums[0], nums[i]]
+    heapify(i, 0)
+  }
+  return nums
+}
